@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Walaks.Poc.Minimal.Api.Application.Services.Interfaces;
 using Walaks.Poc.Minimal.Api.Application.ViewModels;
-using Walaks.Poc.Minimal.Api.Domain.Entities;
-using Walaks.Poc.Minimal.Api.Infrastructure.Context;
 
 namespace Walaks.Poc.Minimal.Api.Endpoints
 {
@@ -11,41 +9,53 @@ namespace Walaks.Poc.Minimal.Api.Endpoints
         {
             var routeUser = app.MapGroup("users");
 
-            routeUser.MapPost("", async (UserRequestViewModel req, EntityContext context) => {
-                var userModel = new UserEntity(req.Nome);
+            routeUser.MapPost("", async (UserRequestViewModel req, IUserService service) => {
 
-                await context.Users.AddAsync(userModel);
-                await context.SaveChangesAsync();
+                var response = await service.AddAsync(req);
 
-                return Results.Created(userModel.Name, userModel);
+                return Results.Created(response.Name, response);
             });
 
-            routeUser.MapGet("", async (EntityContext context) => await context.Users.ToListAsync());
+            routeUser.MapGet("", async (IUserService service) => await service.GetListAsync());
 
-            routeUser.MapGet("{id:guid}", async (Guid id, EntityContext context) => {
-                return Results.Ok(await context.Users.FirstOrDefaultAsync(x => x.Id == id));
+            routeUser.MapGet("{id:guid}", async (Guid id, IUserService service) => {
+
+                var user = await service.GetbyIdAsync(id);
+
+                if (user == null)
+                { 
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(user);
             });
 
-            routeUser.MapPut("{id:guid}", async(UserRequestViewModel req, Guid id, EntityContext context) => { 
+            routeUser.MapPut("{id:guid}", async(UserRequestViewModel req, Guid id, IUserService service) => {
 
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+                var user = await service.GetbyIdAsync(id);
 
-                if (user != null) {
+                if (user == null) 
+                {
                     return Results.NotFound();
                 }
 
                 user.ChangeName(req.Nome);
-                await context.SaveChangesAsync();
-               
+                await service.UpdateAsync(user);
+
                 return Results.Ok(user);
             });
 
-            routeUser.MapDelete("{id:guid}", async (Guid id, EntityContext context) => { 
-                
-                var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            routeUser.MapDelete("{id:guid}", async (Guid id, IUserService service) => {
+
+                var user = await service.GetbyIdAsync(id);
+
+                if (user == null)
+                {
+                    return Results.NotFound();
+                }
 
                 user.SetInactive();
-                await context.SaveChangesAsync();
+                await service.UpdateAsync(user);
 
                 return Results.Ok();
             });
