@@ -26,6 +26,30 @@ namespace Walaks.Poc.Minimal.Api.Endpoints
                 return Results.Ok(await context.Users.FirstOrDefaultAsync(x => x.Id == id));
             });
 
+            routeUser.MapPut("{id:guid}", async(UserRequestViewModel req, Guid id, EntityContext context) => { 
+
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+                if (user != null) {
+                    return Results.NotFound();
+                }
+
+                user.ChangeName(req.Nome);
+                await context.SaveChangesAsync();
+               
+                return Results.Ok(user);
+            });
+
+            routeUser.MapDelete("{id:guid}", async (Guid id, EntityContext context) => { 
+                
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+                user.SetInactive();
+                await context.SaveChangesAsync();
+
+                return Results.Ok();
+            });
+
         }
     }
 }
