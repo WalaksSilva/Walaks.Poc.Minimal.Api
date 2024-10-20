@@ -1,5 +1,5 @@
-﻿using Walaks.Poc.Minimal.Api.Extensions;
-using Walaks.Poc.Minimal.Api.ViewModels;
+﻿using Walaks.Poc.Minimal.Api.Application.ViewModels;
+using Walaks.Poc.Minimal.Api.Common.Extensions;
 
 namespace Walaks.Poc.Minimal.Api.Endpoints
 {

@@ -1,8 +1,8 @@
-﻿namespace Walaks.Poc.Minimal.Api.Models
+﻿namespace Walaks.Poc.Minimal.Api.Domain.Entities
 {
-    public class UserModel
+    public class UserEntity
     {
-        public UserModel(string name)
+        public UserEntity(string name)
         {
             Name = name;
             Id = Guid.NewGuid();

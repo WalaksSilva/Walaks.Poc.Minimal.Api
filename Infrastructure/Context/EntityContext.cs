@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Walaks.Poc.Minimal.Api.Models;
+using Walaks.Poc.Minimal.Api.Domain.Entities;
 
-namespace Walaks.Poc.Minimal.Api.Context
+namespace Walaks.Poc.Minimal.Api.Infrastructure.Context
 {
     public class EntityContext : DbContext
     {
-        public DbSet<UserModel> Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

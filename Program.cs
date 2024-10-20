@@ -1,6 +1,5 @@
-using Walaks.Poc.Minimal.Api.Context;
 using Walaks.Poc.Minimal.Api.Endpoints;
-using Walaks.Poc.Minimal.Api.Extensions;
+using Walaks.Poc.Minimal.Api.Infrastructure.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

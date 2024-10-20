@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Walaks.Poc.Minimal.Api.Context;
+using Walaks.Poc.Minimal.Api.Infrastructure.Context;
 
 #nullable disable
 

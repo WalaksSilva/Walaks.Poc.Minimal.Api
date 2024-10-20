@@ -1,4 +1,4 @@
-﻿namespace Walaks.Poc.Minimal.Api.ViewModels
+﻿namespace Walaks.Poc.Minimal.Api.Application.ViewModels
 {
     public record DocumentoRequestViewModel(string CPF);
 }
