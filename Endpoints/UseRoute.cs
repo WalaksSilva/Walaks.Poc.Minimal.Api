@@ -1,4 +1,5 @@
-﻿using Walaks.Poc.Minimal.Api.Application.Services.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
+using Walaks.Poc.Minimal.Api.Application.Services.Interfaces;
 using Walaks.Poc.Minimal.Api.Application.ViewModels;
 
 namespace Walaks.Poc.Minimal.Api.Endpoints
@@ -16,14 +17,15 @@ namespace Walaks.Poc.Minimal.Api.Endpoints
                 return Results.Created(response.Name, response);
             });
 
-            routeUser.MapGet("", async (IUserService service) => await service.GetListAsync());
+            routeUser.MapGet("", [Authorize] async (IUserService service) => await service.GetListAsync());
 
-            routeUser.MapGet("{id:guid}", async (Guid id, IUserService service) => {
+            routeUser.MapGet("{id:guid}", async (Guid id, IUserService service) =>
+            {
 
                 var user = await service.GetbyIdAsync(id);
 
                 if (user == null)
-                { 
+                {
                     return Results.NotFound();
                 }
 
