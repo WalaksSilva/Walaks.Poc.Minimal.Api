@@ -480,6 +480,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# Vim temporary swap files
-*.swp
-/src/Certificates/CERT-ABC-CLEAN-TEMPLATE.pfx
+# Ignorar arquivos de configuração de desenvolvimento
+/appsettings.Development.json
+/appsettings.Development.json
