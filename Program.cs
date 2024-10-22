@@ -17,6 +17,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minimal API", Version = "v1" });
 
+    // Habilitar o uso de anotações
+    c.EnableAnnotations();
+
     // Configura o Swagger para usar Bearer Token
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -45,7 +48,11 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireWrite", policy =>
+        policy.RequireRole("Write"));
+});
 
 builder.Services.AddScoped<EntityContext>();
 
