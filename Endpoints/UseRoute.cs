@@ -17,7 +17,7 @@ namespace Walaks.Poc.Minimal.Api.Endpoints
                 return Results.Created(response.Name, response);
             });
 
-            routeUser.MapGet("", [Authorize] async (IUserService service) => await service.GetListAsync());
+            routeUser.MapGet("", /*[Authorize]*/ async (IUserService service) => await service.GetListAsync());
 
             routeUser.MapGet("{id:guid}", async (Guid id, IUserService service) =>
             {

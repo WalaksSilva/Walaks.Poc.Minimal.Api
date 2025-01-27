@@ -1,3 +1,4 @@
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
@@ -40,6 +41,15 @@ builder.Services.AddSwaggerGen(c =>
         new string[] {}
     }});
 });
+
+builder.Services.AddMassTransit(bus =>
+{
+    bus.UsingRabbitMq((ctx, busConfigurator) =>
+    {
+        busConfigurator.Host(builder.Configuration.GetConnectionString("RabbitMq"));
+    });
+});
+//builder.Services.AddMassTransitHostedService();
 
 // Adicionar autenticação e configuração do Entra ID
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
