@@ -13,7 +13,7 @@ namespace Walaks.Poc.Minimal.Api.Endpoints
             var routeUser = app.MapGroup("users");
 
             routeUser.MapPost("",
-                [Authorize(Policy = "RequireWrite")]
+                //[Authorize(Policy = "RequireWrite")]
                 [SwaggerOperation(
                     Summary = "Cria um novo usuário",
                     Description = "Adiciona um novo usuário ao sistema com base nas informações fornecidas no corpo da requisição.",

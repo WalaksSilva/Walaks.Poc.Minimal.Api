@@ -480,6 +480,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# Ignorar arquivos de configuração de desenvolvimento
-/appsettings.Development.json
-/appsettings.Development.json
+# Ignorar arquivos de configuraï¿½ï¿½o de desenvolvimento
+**/appsettings.Development.json
